@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        var ws
+        function send(){
+            ws.send(document.getElementById("message").value);//发送参数
+        }
+        function open(){
+            // 初始化一个 WebSocket 对象
+            //var ws = new WebSocket("ws:/xxxxx/websocket?serialNo=xxx&key=xx);
+            ws = new WebSocket("ws:/192.168.0.64:7777/ws");
+
+            // 建立 websocket 连接成功触发事件
+            ws.onopen = function () {
+                console.log("连接成功");
+            };
+
+            // 当服务端处理完成后会将数据发送回来
+            ws.onmessage = function (evt) {
+                var data= evt.data;
+                //var data = JSON.parse(event.data)
+                console.log(data)
+            };
+        }
+
+    </script>
+   </head>
+<body onload="open()">
+<input type="text" name="message" id="message"></body>
+<button  onclick="send()">send</button>
+</body>
+</html>
